@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "450265420670",
+    "project_id": "flutterproject1-80339",
+    "storage_bucket": "flutterproject1-80339.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450265420670:android:b735d09368b69a27b7992f",
+        "android_client_info": {
+          "package_name": "com.ecommerce.app.ecommerce_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450265420670-ussaguttlc050mnajsavi542o3uv4lv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzGoto5RaxvwK-KIqEgskHxD0slOx5iqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450265420670-ussaguttlc050mnajsavi542o3uv4lv6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450265420670-79rth8dnv4aha5f7k7bklakc39jotm2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.footballLiveScore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450265420670:android:22b6247ee617e4beb7992f",
+        "android_client_info": {
+          "package_name": "com.example.football_live_score"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450265420670-nsa8ece9vvpkab82puku45fdebjkd9sn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.football_live_score",
+            "certificate_hash": "4df0066a29054f0591e452f6133c87a4be36afe6"
+          }
+        },
+        {
+          "client_id": "450265420670-ussaguttlc050mnajsavi542o3uv4lv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzGoto5RaxvwK-KIqEgskHxD0slOx5iqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450265420670-ussaguttlc050mnajsavi542o3uv4lv6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450265420670-79rth8dnv4aha5f7k7bklakc39jotm2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.footballLiveScore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
