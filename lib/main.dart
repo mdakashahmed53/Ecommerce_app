@@ -27,10 +27,10 @@ Future<void> main() async {
 
 
 // Initialize FVM -> Done
-// Folder structure
+// Folder structure -> Done
 // Firebase Set up -> Done
-// Crashlytics ->
-// Analytics ->
+// Crashlytics -> Done
+// Analytics -> Done
 // Theming ->
-// Localization
-// Provider
+// Localization ->
+// Provider ->

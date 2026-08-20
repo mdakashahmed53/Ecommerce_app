@@ -1,0 +1,15 @@
+{
+    "version" : "Version",
+    "signUpSubTitle": "Create an account with details",
+    "createAccount":"Create New Account",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "signUp" : "Sign Up",
+    "verifyOtp":"Verify OTP",
+    "otpSubTitle": "Enter the OTP sent to your email",
+    "otpExpire": "This code will expire in ",
+    "resendCode": "Resent OTP",
+    "welcome" : "Welcome Back",
+    "inputEmail" : "Please Enter Your Email Address",
+    "submitOtp" : "Verify"
+}
