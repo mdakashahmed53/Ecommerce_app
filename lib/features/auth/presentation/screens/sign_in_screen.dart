@@ -6,6 +6,7 @@ import 'package:ecommerce_app/features/auth/presentation/screens/sign_up_screen.
 import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/widgets/app_logo.dart';
 import 'package:ecommerce_app/features/shared/presentation/screens/main_nav_holder_screen.dart';
+import 'package:ecommerce_app/features/shared/presentation/widgets/centered_progress_indicator.dart';
 import 'package:ecommerce_app/features/shared/presentation/widgets/snack_bar_message.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -75,9 +76,17 @@ class _SignInScreenState extends State<SignInScreen> {
 
                     SizedBox(height: 16),
 
-                    FilledButton(
-                      onPressed: _onTapSignIn,
-                      child: Text(context.localizations.signIn),
+                    Consumer<SingInProvider>(
+                      builder: (context, _,_) {
+                        if(_singInProvider.signInProgress){
+                          return CenteredProgressIndicator();
+                        }
+
+                        return FilledButton(
+                          onPressed: _onTapSignIn,
+                          child: Text(context.localizations.signIn),
+                        );
+                      }
                     ),
 
                     Row(

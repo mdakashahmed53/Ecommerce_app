@@ -6,4 +6,6 @@ class Urls {
   static const String signInUrl = "$_baseUrl/auth/login";
 
   static const String verifyOtpUrl = "$_baseUrl/auth/verify-otp";
+
+  static const String homeSliderUrls = "$_baseUrl/slides";
 }

@@ -61,7 +61,7 @@ class _EcommerceAppState extends State<EcommerceApp> {
                 supportedLocales: _localeProvider.supportedLocales,
                 locale: _localeProvider.currentLocale,
                 onGenerateRoute: AppRoutes.onGenerateRoute,
-                initialRoute: SignUpScreen.name,
+                initialRoute: SplashScreen.name,
               );
             },
           );

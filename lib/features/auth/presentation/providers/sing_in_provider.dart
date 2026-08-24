@@ -1,7 +1,9 @@
 import 'package:ecommerce_app/app/get_network_caller.dart';
+import 'package:ecommerce_app/app/providers/auth_controller.dart';
 import 'package:ecommerce_app/app/urls.dart';
 import 'package:ecommerce_app/core/services/network_caller.dart';
 import 'package:ecommerce_app/features/auth/data/models/sign_in_prams.dart';
+import 'package:ecommerce_app/features/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class SingInProvider extends ChangeNotifier {
@@ -23,6 +25,11 @@ class SingInProvider extends ChangeNotifier {
     );
 
     if (response.isSuccess) {
+      String token = response.body['data']['token'];
+      UserModel user = UserModel.fromJson(response.body['data']['user']);
+
+      await AuthController.saveUserData(token, user);
+
       isSuccess = true;
       _errorMessage = null;
     } else {
