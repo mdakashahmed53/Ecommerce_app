@@ -3,7 +3,6 @@ import 'package:ecommerce_app/app/providers/locale_provider.dart';
 import 'package:ecommerce_app/app/providers/theme_provider.dart';
 import 'package:ecommerce_app/app/routes.dart';
 import 'package:ecommerce_app/features/auth/presentation/providers/resend_otp_provider.dart';
-import 'package:ecommerce_app/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/splash/screens/splash_screen.dart';
 import 'package:ecommerce_app/features/shared/presentation/providers/main_nav_holder_provider.dart';
 import 'package:ecommerce_app/l10n/app_localizations.dart';

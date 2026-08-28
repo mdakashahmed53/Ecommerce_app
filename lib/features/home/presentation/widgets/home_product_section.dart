@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/features/shared/presentation/widgets/product_item.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 
 class HomeProductSection extends StatelessWidget {
   const HomeProductSection({super.key, required this.products});
@@ -14,7 +14,7 @@ class HomeProductSection extends StatelessWidget {
         scrollDirection: .horizontal,
           itemCount: 10,
           itemBuilder: (context, index){
-            return ProductItem();
+            // return ProductItem();
           }
 
       ),

@@ -24,6 +24,7 @@ class SignUpProvider extends ChangeNotifier {
     );
 
     if(response.isSuccess){
+
       isSuccess = true;
       _errorMessage = null;
     }else {

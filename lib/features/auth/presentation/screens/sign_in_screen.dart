@@ -3,7 +3,6 @@ import 'package:ecommerce_app/app/exentension/validators.dart';
 import 'package:ecommerce_app/features/auth/data/models/sign_in_prams.dart';
 import 'package:ecommerce_app/features/auth/presentation/providers/sing_in_provider.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/sign_up_screen.dart';
-import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/widgets/app_logo.dart';
 import 'package:ecommerce_app/features/shared/presentation/screens/main_nav_holder_screen.dart';
 import 'package:ecommerce_app/features/shared/presentation/widgets/centered_progress_indicator.dart';

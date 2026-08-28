@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:ecommerce_app/features/category/data/category_model.dart';
 import 'package:ecommerce_app/features/splash/screens/splash_screen.dart';
 import 'package:ecommerce_app/features/auth/presentation/screens/verify_otp_screen.dart';
 import 'package:ecommerce_app/features/category/presentation/screens/category_screen.dart';
@@ -38,8 +39,8 @@ class AppRoutes {
       case AddReviewScreen.name:
         widget = AddReviewScreen();
       case ProductByCategoryScreen.name:
-        final categoryName = setting.arguments as String;
-        widget = ProductByCategoryScreen(categoryName: categoryName);
+        final category = setting.arguments as CategoryModel;
+        widget = ProductByCategoryScreen( category: category,);
     }
     return MaterialPageRoute(builder: (_) => widget);
   }

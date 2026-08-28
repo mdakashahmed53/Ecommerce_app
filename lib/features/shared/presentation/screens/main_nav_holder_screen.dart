@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:ecommerce_app/features/cart/presentation/cart_screen.dart';
+import 'package:ecommerce_app/features/category/presentation/providers/category_list_provider.dart';
 import 'package:ecommerce_app/features/category/presentation/screens/category_screen.dart';
 import 'package:ecommerce_app/features/home/presentation/screens/home_screen.dart';
 import 'package:ecommerce_app/features/shared/presentation/providers/main_nav_holder_provider.dart';
@@ -31,18 +32,22 @@ class _MainNavHolderScreenState extends State<MainNavHolderScreen> {
 
   final HomeSliderProvider _homeSliderProvider =HomeSliderProvider();
 
+  final CategoryListProvider _categoryListProvider = CategoryListProvider();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _homeSliderProvider.getHomeSlider();
+    _categoryListProvider.getCategoryList();
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: _homeSliderProvider)
+        ChangeNotifierProvider.value(value: _homeSliderProvider),
+        ChangeNotifierProvider.value(value: _categoryListProvider)
       ],
       child: Consumer<MainNavHolderProvider>(
         builder: (context, mainNavProvider, _) {

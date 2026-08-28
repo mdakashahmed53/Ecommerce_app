@@ -33,7 +33,7 @@ class SingInProvider extends ChangeNotifier {
       isSuccess = true;
       _errorMessage = null;
     } else {
-      isSuccess = true;
+      isSuccess = false;
       _errorMessage = response.errorMessage;
     }
 

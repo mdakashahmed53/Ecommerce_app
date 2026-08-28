@@ -1,13 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app/features/shared/presentation/widgets/centered_progress_indicator.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/app_colors.dart';
 import '../../../../app/app_constant.dart';
-import '../../../../app/asset_paths.dart';
+import '../../../products/data/product_model.dart';
 import '../../../products/presentation/screens/product_details_screen.dart';
 
-
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+  const ProductItem({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,6 @@ class ProductItem extends StatelessWidget {
             crossAxisAlignment: .start,
             children: [
               Container(
-
                 decoration: BoxDecoration(
                   color: AppColors.themeColor.withAlpha(20),
                   borderRadius: .only(
@@ -36,10 +38,11 @@ class ProductItem extends StatelessWidget {
                 child: Padding(
                   padding: const .all(8),
                   child: Center(
-                    child: Image.asset(
-                      AssetPaths.dummyImagePng,
-                      fit: BoxFit.scaleDown,
-
+                    child: CachedNetworkImage(
+                      imageUrl: product.photos[0],
+                      errorWidget: (_, _, _) => Icon(Icons.error),
+                      progressIndicatorBuilder: (_, _, _) =>
+                          CenteredProgressIndicator(),
                     ),
                   ),
                 ),
@@ -50,7 +53,7 @@ class ProductItem extends StatelessWidget {
                   crossAxisAlignment: .start,
                   children: [
                     Text(
-                      'Title of productwek rlewrjlk',
+                      product.title,
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: 16,
@@ -63,7 +66,7 @@ class ProductItem extends StatelessWidget {
                       mainAxisAlignment: .spaceBetween,
                       children: [
                         Text(
-                          '${Constants.takaSign}100',
+                          '${Constants.takaSign}${product.currentPrice}',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: .w500,
@@ -73,7 +76,7 @@ class ProductItem extends StatelessWidget {
                         Wrap(
                           children: [
                             Icon(Icons.star, size: 20, color: Colors.amber),
-                            Text('4.5'),
+                            Text(product.rating.toString()),
                           ],
                         ),
                         Card(
