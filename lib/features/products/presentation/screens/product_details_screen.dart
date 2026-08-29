@@ -1,139 +1,173 @@
-import 'package:ecommerce_app/features/products/presentation/widgets/product_details/color_picker.dart';
-import 'package:ecommerce_app/features/products/presentation/widgets/product_details/price_and_add_to_cart_section.dart';
-import 'package:ecommerce_app/features/products/presentation/widgets/product_details/product_image_carousel.dart';
-import 'package:ecommerce_app/features/products/presentation/widgets/product_details/size_picker.dart';
-import 'package:ecommerce_app/features/review/presentation/screens/review_screen.dart';
-import 'package:ecommerce_app/features/shared/presentation/widgets/inc_dec_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../app/app_colors.dart';
+import '../../../review/presentation/screens/review_screen.dart';
+import '../../../shared/presentation/widgets/centered_progress_indicator.dart';
+import '../../../shared/presentation/widgets/inc_dec_button.dart';
+import '../provider/product_details_provider.dart';
+import '../widgets/product_details/color_picker.dart';
+import '../widgets/product_details/price_and_add_to_cart_section.dart';
+import '../widgets/product_details/product_image_carousel.dart';
+import '../widgets/product_details/size_picker.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.productId});
 
   static const String name = 'product_details';
+
+  final String productId;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+
+  final ProductDetailsProvider _productDetailsProvider = ProductDetailsProvider();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _productDetailsProvider.getProductDetails(widget.productId);
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Product Details')),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const ProductImageCarousel(),
-                  Padding(
-                    padding: const EdgeInsets.all(12),
+    return ChangeNotifierProvider.value(
+      value: _productDetailsProvider,
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Product Details')),
+        body: Consumer<ProductDetailsProvider>(
+          builder: (context, productDetailsProvider,_) {
+
+            if(productDetailsProvider.isLoading){
+              return const CenteredProgressIndicator();
+            }
+
+
+
+
+
+          final productDetails = productDetailsProvider.productDetails;
+
+
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            const Expanded(
-                              child: Text(
-                                'Happy New Year Special Deal Save 30%',
+                         ProductImageCarousel(image: productDetailsProvider.productDetails.photos,),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      productDetails.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 80,
+                                    child: IncDecButton(
+                                      initialValue: 1,
+                                      onChange: (int value) {},
+                                      maxValue: 5,
+                                      minValue: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  const Icon(Icons.star, size: 24, color: Colors.amber),
+                                  const SizedBox(width: 4),
+                                  const Text('4.5', style: TextStyle(fontSize: 18)),
+                                  const SizedBox(width: 8),
+                                  TextButton(
+                                    onPressed: _onTapReviewButton,
+                                    child: const Text(
+                                      'Reviews',
+                                      style: TextStyle(
+                                        color: AppColors.themeColor,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    color: AppColors.themeColor,
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(2.0),
+                                      child: Icon(
+                                        Icons.favorite_border,
+                                        size: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Color',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 18,
                                   color: Colors.black54,
+                                  fontSize: 18,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 80,
-                              child: IncDecButton(
-                                initialValue: 1,
-                                onChange: (int value) {},
-                                maxValue: 5,
-                                minValue: 1,
+                              const SizedBox(height: 8),
+                              ColorPicker(
+                                colors: productDetails.colors,
+                                onChange: (String selectedColor) {},
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            const Icon(Icons.star, size: 24, color: Colors.amber),
-                            const SizedBox(width: 4),
-                            const Text('4.5', style: TextStyle(fontSize: 18)),
-                            const SizedBox(width: 8),
-                            TextButton(
-                              onPressed: _onTapReviewButton,
-                              child: const Text(
-                                'Reviews',
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Size',
                                 style: TextStyle(
-                                  color: AppColors.themeColor,
-                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54,
+                                  fontSize: 18,
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 8),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
+                              const SizedBox(height: 8),
+                              SizePicker(
+                                sizes: productDetails.sizes,
+                                onChange: (String selectedSize) {},
                               ),
-                              color: AppColors.themeColor,
-                              child: const Padding(
-                                padding: EdgeInsets.all(2.0),
-                                child: Icon(
-                                  Icons.favorite_border,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
+                              const SizedBox(height: 16),
+                               Text(productDetails.description,
+                                style: TextStyle(color: Colors.black54, fontSize: 16),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Color',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black54,
-                            fontSize: 18,
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        ColorPicker(
-                          colors: const ['Red', 'Black', 'Blue', 'Grey'],
-                          onChange: (String selectedColor) {},
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Size',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black54,
-                            fontSize: 18,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        SizePicker(
-                          sizes: const ['S', 'M', 'L', 'XL'],
-                          onChange: (String selectedSize) {},
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          '''Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London''',
-                          style: TextStyle(color: Colors.black54, fontSize: 16),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                ),
 
-          const PriceAndAddToCartSection(),
-        ],
+                 PriceAndAddToCartSection(),
+              ],
+            );
+          }
+        ),
       ),
     );
   }

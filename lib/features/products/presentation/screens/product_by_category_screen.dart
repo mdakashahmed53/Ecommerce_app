@@ -19,26 +19,26 @@ class ProductByCategoryScreen extends StatefulWidget {
 }
 
 class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
-
   final ProductListProvider _productListProvider = ProductListProvider();
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _productListProvider.getProductListByCategory(widget.category.id);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _productListProvider.getProductListByCategory(widget.category.id);
+    });
     _scrollController.addListener(_loadMore);
   }
 
-
-    void _loadMore() {
-      if (_productListProvider.isLoading == false &&
-          _scrollController.position.extentBefore < 300) {
+  void _loadMore() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      if (!_productListProvider.isLoading) {
         _productListProvider.getProductListByCategory(widget.category.id);
       }
     }
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,46 +47,54 @@ class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
       child: Scaffold(
         appBar: AppBar(title: Text(widget.category.title)),
         body: Consumer<ProductListProvider>(
-          builder: (context,_,_) {
-
-            if(_productListProvider.initialLoading){
-              return CenteredProgressIndicator();
+          builder: (context, provider, _) {
+            if (provider.initialLoading) {
+              return const CenteredProgressIndicator();
             }
 
-            if(_productListProvider.products.isEmpty){
-              return Center(child: Text('No products found'));
+            if (provider.products.isEmpty) {
+              return const Center(child: Text('No products found'));
             }
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-
-                // refresh indicator add korte hbe
-
-                children: [
-                  Expanded(
+            return Column(
+              children: [
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      _productListProvider.refreshProductList(widget.category.id);
+                    },
                     child: GridView.builder(
-                      itemCount: _productListProvider.products.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      itemCount: provider.products.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio: 0.75,
-
+                        childAspectRatio: 0.5, // Aspect ratio কমিয়ে উচ্চতা বাড়ানো হয়েছে ওভারফ্লো রোধ করতে
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
                       ),
                       itemBuilder: (context, index) {
-                        return FittedBox(child: ProductItem(product: _productListProvider.products[index]));
+                        return ProductItem(product: provider.products[index]);
                       },
                     ),
                   ),
-                  if(_productListProvider.loadingMore)
-                    LinearProgressIndicator()
-
-
-                ],
-              ),
+                ),
+                if (provider.loadingMore)
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: LinearProgressIndicator(),
+                  ),
+              ],
             );
-          }
+          },
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               HomeSectionHeader(sectionTitle: 'All Categories', onTapSeeAll: () {
                 context.read<MainNavHolderProvider>().moveToCategory();
               },),
+
               HomeCategorySection(),
 
               HomeSectionHeader(sectionTitle: 'Popular', onTapSeeAll: (){}),
