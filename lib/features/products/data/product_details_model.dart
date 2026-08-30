@@ -25,9 +25,9 @@ class ProductDetailsModel {
     return ProductDetailsModel(
       id: json['_id'],
       title: json['title'] ,
-      photos: json['photos'] ?? [],
-      colors: json['colors'] ?? [],
-      sizes: json['sizes'] ?? [],
+      photos: List<String>.from(json['photos'] ?? []),
+      colors: List<String>.from(json['colors'] ?? []),
+      sizes: List<String>.from(json['sizes'] ?? []),
       currentPrice: json['current_price'] ?? 0,
       quantity: json['quantity'] ?? 0,
       regularPrice: json['regular_price'] ?? 0,

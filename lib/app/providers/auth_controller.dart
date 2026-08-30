@@ -31,14 +31,13 @@ class AuthController {
     }
   }
 
-
-  static Future<bool>isLoggedIn() async {
+  static Future<bool> isLoggedIn() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString(_tokenKey);
     return token != null;
   }
 
-  static Future<void>clearUserData()async{
+  static Future<void> clearUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove(_tokenKey);
     await sharedPreferences.remove(_userModelKey);
@@ -46,6 +45,4 @@ class AuthController {
     accessToken = null;
     userModel = null;
   }
-
-
 }

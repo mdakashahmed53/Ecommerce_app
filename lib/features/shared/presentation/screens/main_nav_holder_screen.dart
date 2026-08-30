@@ -9,11 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../home/presentation/providers/home_slider_provider.dart';
+import '../../../products/presentation/provider/product_list_provider.dart';
 
 class MainNavHolderScreen extends StatefulWidget {
-  const MainNavHolderScreen({super.key});
+  const MainNavHolderScreen({super.key,});
 
   static const String name = "/main-nav-holder";
+
+
 
   @override
   State<MainNavHolderScreen> createState() => _MainNavHolderScreenState();
@@ -33,6 +36,8 @@ class _MainNavHolderScreenState extends State<MainNavHolderScreen> {
   final HomeSliderProvider _homeSliderProvider =HomeSliderProvider();
 
   final CategoryListProvider _categoryListProvider = CategoryListProvider();
+  
+  final ProductListProvider _productListProvider = ProductListProvider();
 
   @override
   void initState() {
@@ -40,6 +45,7 @@ class _MainNavHolderScreenState extends State<MainNavHolderScreen> {
     super.initState();
     _homeSliderProvider.getHomeSlider();
     _categoryListProvider.getCategoryList();
+    // _productListProvider.getProductListByCategory(widget.categoryId);
   }
 
   @override
@@ -47,7 +53,8 @@ class _MainNavHolderScreenState extends State<MainNavHolderScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: _homeSliderProvider),
-        ChangeNotifierProvider.value(value: _categoryListProvider)
+        ChangeNotifierProvider.value(value: _categoryListProvider),
+        ChangeNotifierProvider.value(value: _productListProvider),
       ],
       child: Consumer<MainNavHolderProvider>(
         builder: (context, mainNavProvider, _) {

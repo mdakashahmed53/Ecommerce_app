@@ -8,6 +8,7 @@ import 'package:ecommerce_app/features/shared/presentation/widgets/product_item.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../products/presentation/provider/product_list_provider.dart';
 import '../widgets/home_section_header.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,15 +43,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
               HomeSectionHeader(sectionTitle: 'Popular', onTapSeeAll: (){}),
 
-              HomeProductSection(products: [],),
+              Consumer<ProductListProvider>(
+                builder: (context, productListProvider,_) {
+                  final product = productListProvider.products;
+                  return HomeProductSection();
+                }
+              ),
               const SizedBox(height: 10,),
               HomeSectionHeader(sectionTitle: 'Special', onTapSeeAll: (){}),
 
-              HomeProductSection(products: [],),
+              HomeProductSection(),
               const SizedBox(height: 10,),
               HomeSectionHeader(sectionTitle: 'New', onTapSeeAll: (){}),
 
-              HomeProductSection(products: [],),
+              HomeProductSection(),
 
 
             ],
@@ -59,6 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+
+
 }
 
 
