@@ -89,7 +89,9 @@ class NetworkCaller {
 
     // url log request
   void _logRequest(String url) {
-    _logger.i("Request URL: $url");
+    _logger.i("""Request URL: $url
+    Header : ${headers()}""");
+
   }
   // log response request
   void _logResponse(Response response, {bool isError = false}) {

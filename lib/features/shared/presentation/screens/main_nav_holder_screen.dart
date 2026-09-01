@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/app/app_colors.dart';
+import 'package:ecommerce_app/app/providers/auth_controller.dart';
 import 'package:ecommerce_app/features/cart/presentation/cart_screen.dart';
 import 'package:ecommerce_app/features/category/presentation/providers/category_list_provider.dart';
 import 'package:ecommerce_app/features/category/presentation/screens/category_screen.dart';
@@ -8,6 +9,7 @@ import 'package:ecommerce_app/features/wishlist/presentation/screens/wishlist_sc
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../auth/presentation/screens/sign_in_screen.dart';
 import '../../../home/presentation/providers/home_slider_provider.dart';
 import '../../../products/presentation/provider/product_list_provider.dart';
 
@@ -60,9 +62,18 @@ class _MainNavHolderScreenState extends State<MainNavHolderScreen> {
         builder: (context, mainNavProvider, _) {
           return Scaffold(
             body: _screens[mainNavProvider.selectedIndex],
+
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: mainNavProvider.selectedIndex,
-                onTap: mainNavProvider.changeIndex,
+                onTap: (index)async {
+                if(index == 2 || index == 3){
+                  if(await AuthController.isLoggedIn() == false){
+                    Navigator.pushNamed(context, SignInScreen.name);
+                    return;
+                  }
+                }
+                mainNavProvider.changeIndex(index);
+                },
                 selectedItemColor: AppColors.themeColor,
                 unselectedItemColor: Colors.grey,
                 showUnselectedLabels: true,

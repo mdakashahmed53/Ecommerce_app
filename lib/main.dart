@@ -23,6 +23,12 @@ Future<void> main() async {
   runApp(const EcommerceApp());
 }
 
+ /// app bar theme kaz kore nah
+ /// add to cart button kaz kore nah
+ /// popular product section kaz kore nah
+ ///  product screen show kore nah
+ ///
+
 
 
 

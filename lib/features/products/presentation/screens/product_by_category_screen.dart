@@ -69,7 +69,7 @@ class _ProductByCategoryScreenState extends State<ProductByCategoryScreen> {
                       itemCount: provider.products.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio: 0.5, // Aspect ratio কমিয়ে উচ্চতা বাড়ানো হয়েছে ওভারফ্লো রোধ করতে
+                        childAspectRatio: 0.5,
                         mainAxisSpacing: 8,
                         crossAxisSpacing: 8,
                       ),

@@ -1,12 +1,16 @@
+import 'package:ecommerce_app/features/shared/presentation/widgets/centered_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../app/app_colors.dart';
 import '../../../../../app/app_constant.dart';
+import '../../../../cart/providers/add_to_cart_provider.dart';
 import '../../provider/product_details_provider.dart';
 
 class PriceAndAddToCartSection extends StatelessWidget {
-  const PriceAndAddToCartSection({super.key});
+  const PriceAndAddToCartSection({super.key, required this.addToCat});
+
+  final VoidCallback addToCat;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,16 @@ class PriceAndAddToCartSection extends StatelessWidget {
               ),
               SizedBox(
                   width: 120,
-                  child: FilledButton(onPressed: (){}, child: Text('Add to Cart')))
+                  child: Consumer<AddToCartProvider>(
+                    builder: (context, addToCartProvider, _) {
+
+                      if(addToCartProvider.isLoading){
+                        return CenteredProgressIndicator();
+                      }
+
+                      return FilledButton(onPressed: addToCat, child: Text('Add to Cart'));
+                    }
+                  ))
             ],
           ),
         );
