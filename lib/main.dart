@@ -24,9 +24,9 @@ Future<void> main() async {
 }
 
  /// app bar theme kaz kore nah
- /// add to cart button kaz kore nah
+ /// add to cart korte gele invalid product id aase
  /// popular product section kaz kore nah
- ///  product screen show kore nah
+ /// product screen show kore nah
  ///
 
 
