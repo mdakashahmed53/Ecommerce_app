@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/features/cart/providers/cart_list_provider.dart';
 import 'package:ecommerce_app/features/cart/widgets/cart_item.dart';
 import 'package:ecommerce_app/features/cart/widgets/price_and_checkout_section.dart';
 import 'package:ecommerce_app/features/shared/presentation/providers/main_nav_holder_provider.dart';
+import 'package:ecommerce_app/features/shared/presentation/widgets/centered_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +14,21 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+
+  final CartListProvider _cartListProvider = CartListProvider();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      _cartListProvider.getCartList();
+    });
+
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -19,22 +36,33 @@ class _CartScreenState extends State<CartScreen> {
         onPopInvokedWithResult: (_,_){
           _backToHome();
         },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Cart'),
-        ),
-        body: Column(
-          children: [
-           Expanded(child: ListView.builder(
+      child: ChangeNotifierProvider.value(
+        value: _cartListProvider,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Cart'),
+          ),
+          body: Consumer<CartListProvider>(
+            builder: (context, _ ,_) {
+              if(_cartListProvider.isLoading){
+                return CenteredProgressIndicator();
+              }
 
-               itemCount: 3,
-               itemBuilder: (context, index){
-                 return CartItem();
-               }
+              return Column(
+                children: [
+                 Expanded(child: ListView.builder(
 
-           )),
-           PriceAndCheckOutSection(),
-          ],
+                     itemCount: _cartListProvider.cartList.length,
+                     itemBuilder: (context, index){
+                       return CartItem(cartModel: _cartListProvider.cartList[index],);
+                     }
+
+                 )),
+                 PriceAndCheckOutSection(),
+                ],
+              );
+            }
+          ),
         ),
       ),
     );

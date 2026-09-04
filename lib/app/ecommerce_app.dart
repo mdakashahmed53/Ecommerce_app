@@ -13,6 +13,9 @@ import 'package:provider/provider.dart';
 class EcommerceApp extends StatefulWidget {
   const EcommerceApp({super.key});
 
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+
   @override
   State<EcommerceApp> createState() => _EcommerceAppState();
 }
@@ -45,6 +48,7 @@ class _EcommerceAppState extends State<EcommerceApp> {
           return Consumer<LocaleProvider>(
             builder: (context, _, _) {
               return MaterialApp(
+                navigatorKey: EcommerceApp.navigatorKey,
                 title: 'Ecommerce App',
                 debugShowCheckedModeBanner: false,
                 // home: SignUpScreen(),

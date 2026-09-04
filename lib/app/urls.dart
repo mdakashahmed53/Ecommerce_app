@@ -24,7 +24,9 @@ class Urls {
 
   static const String addToCartUrl = "$_baseUrl/cart";
 
-   // reviews?count=1&product=679a06ad8ddf463f174f0df6
   static String getReviewListUrl(String productId, int pageSize) => "$_baseUrl/reviews?count=$pageSize&product=$productId";
+
+  static const String cartListUrls = "$_baseUrl/cart";
+
 
 }

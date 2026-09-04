@@ -1,6 +1,5 @@
-
 import 'dart:convert';
-
+import 'dart:ui';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
@@ -10,8 +9,10 @@ class NetworkCaller {
   Logger _logger = Logger();
 
   final Map<String, String> Function() headers;
+  final VoidCallback onUnauthorized;
 
-  NetworkCaller({required this.headers});
+
+  NetworkCaller({required this.headers, required this.onUnauthorized});
 
 
   // api get request
@@ -29,7 +30,15 @@ class NetworkCaller {
           statusCode: response.statusCode,
           body: decodeJson,
         );
-      } else {
+      } else if(response.statusCode == 401){
+        onUnauthorized();
+        _logResponse(response,isError: true);
+        return NetworkResponse(
+          isSuccess: false,
+          statusCode: response.statusCode,
+          errorMessage: decodeJson['Unauthorized'],
+        );
+      }else {
         _logResponse(response,isError: true);
         return NetworkResponse(
           isSuccess: false,
@@ -49,7 +58,7 @@ class NetworkCaller {
   }
 
   // api post request
-  Future<NetworkResponse> postRequest(String url,  {required Map<String, dynamic> body}) async {
+  Future<NetworkResponse> postRequest(String url,  {required Map<String, dynamic> body, bool fromLogin = false}) async {
     // Uri uri = Uri.parse(url);
     try {
       Response response = await post(Uri.parse(url,), body: jsonEncode(body), headers: headers());
@@ -66,7 +75,17 @@ class NetworkCaller {
           statusCode: response.statusCode,
           body: decodeJson,
         );
-      } else {
+      } else if(response.statusCode == 401){
+        if(fromLogin == false){
+          onUnauthorized();
+        }
+        _logResponse(response, isError: true);
+        return NetworkResponse(
+          isSuccess: false,
+          statusCode: response.statusCode,
+          errorMessage: 'Unauthorized',
+        );
+      }else {
         _logResponse(response, isError: true);
         return NetworkResponse(
           isSuccess: false,

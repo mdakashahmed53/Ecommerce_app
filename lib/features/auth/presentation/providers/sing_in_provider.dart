@@ -14,7 +14,7 @@ class SingInProvider extends ChangeNotifier {
   String? _errorMessage;
   String get errorMessage => _errorMessage!;
 
-  Future<bool> singIn(SignInPrams prams) async {
+  Future<bool> singIn(SignInPrams prams, ) async {
     bool isSuccess = false;
     _signInProgress = true;
     notifyListeners();
@@ -22,6 +22,7 @@ class SingInProvider extends ChangeNotifier {
     NetworkResponse response = await getNetworkCaller().postRequest(
       Urls.signInUrl,
       body: prams.toJson(),
+      fromLogin: true,
     );
 
     if (response.isSuccess) {
