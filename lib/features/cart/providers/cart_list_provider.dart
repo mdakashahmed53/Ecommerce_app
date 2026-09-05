@@ -27,10 +27,15 @@ class CartListProvider extends ChangeNotifier {
       _cartList = (response.body['data']['results'] as List).map((e) => CartModel.fromJson(e)).toList();
       isSuccess = true;
       _errorMessage = null;
+
     }else{
       isSuccess = false;
       _errorMessage = response.errorMessage;
+
     }
+
+    _isLoading = false;
+    notifyListeners();
 
 
     return isSuccess;

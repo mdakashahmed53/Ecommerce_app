@@ -31,10 +31,11 @@ class SingInProvider extends ChangeNotifier {
 
       await AuthController.saveUserData(token, user);
 
+
       isSuccess = true;
       _errorMessage = null;
     } else {
-      isSuccess = false;
+
       _errorMessage = response.errorMessage;
     }
 

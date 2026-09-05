@@ -17,18 +17,18 @@ class AddToCartProvider extends ChangeNotifier {
     notifyListeners();
 
     final response = await getNetworkCaller().postRequest(Urls.addToCartUrl, body: prams.toJson());
-
+    _isLoading = false;
     if(response.isSuccess){
       notifyListeners();
 
-      _isLoading = false;
       return true;
     }else{
       _errorMessage = response.errorMessage;
       notifyListeners();
-      _isLoading = false;
+
       return false;
     }
+
 
 
   }

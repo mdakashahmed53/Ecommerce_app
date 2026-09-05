@@ -44,8 +44,16 @@ class _CartScreenState extends State<CartScreen> {
           ),
           body: Consumer<CartListProvider>(
             builder: (context, _ ,_) {
+
               if(_cartListProvider.isLoading){
                 return CenteredProgressIndicator();
+              }
+              if(_cartListProvider.errorMessage != null){
+                return Center(child: Text(_cartListProvider.errorMessage!),);
+              }
+
+              if(_cartListProvider.cartList.isEmpty){
+                return Center(child: Text('No items in cart'),);
               }
 
               return Column(

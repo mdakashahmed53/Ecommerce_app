@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/shared/presentation/widgets/centered_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class HomeCategorySection extends StatelessWidget {
       child: Consumer<CategoryListProvider>(
         builder: (context, categoryListProvider, _) {
           if (categoryListProvider.initialLoading) {
-            return CircularProgressIndicator();
+            return CenteredProgressIndicator();
           }
           if (categoryListProvider.category.isEmpty) {
             return Text('No categories found.');

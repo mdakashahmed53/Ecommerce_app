@@ -36,7 +36,8 @@ class AppRoutes {
       case WishlistScreen.name:
         widget = WishlistScreen();
       case ReviewScreen.name:
-        widget = ReviewScreen();
+        final String productId = setting.arguments as String;
+        widget = ReviewScreen(productId: productId,);
       case AddReviewScreen.name:
         widget = AddReviewScreen();
       case ProductByCategoryScreen.name:

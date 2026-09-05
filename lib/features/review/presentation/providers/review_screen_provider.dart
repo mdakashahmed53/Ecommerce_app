@@ -36,7 +36,7 @@ class ReviewListProvider extends ChangeNotifier {
     notifyListeners();
 
     final response = await getNetworkCaller().getRequest(
-      Urls.getReviewListUrl(productId, _pageSize),
+      Urls.getReviewListUrl(productId, _pageSize, _pageNumber)
     );
 
     if (response.isSuccess) {

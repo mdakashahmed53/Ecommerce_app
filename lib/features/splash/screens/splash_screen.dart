@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if(await AuthController.isLoggedIn()){
       Navigator.pushNamedAndRemoveUntil(context, MainNavHolderScreen.name, (_)=>false);
     } else {
-      Navigator.pushNamedAndRemoveUntil(context, SignUpScreen.name, (_)=>false);
+      Navigator.pushNamedAndRemoveUntil(context, MainNavHolderScreen.name, (_)=>false);
 
     }
   }
