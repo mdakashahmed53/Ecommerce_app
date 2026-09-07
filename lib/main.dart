@@ -23,11 +23,14 @@ Future<void> main() async {
   runApp(const EcommerceApp());
 }
 
+
+  /// problem list
+
  /// app bar theme kaz kore nah
  /// add to cart korte gele invalid product id aase
  /// popular product section kaz kore nah
  /// product screen show kore nah
- ///
+ /// popular section kaz kore
 
 
 

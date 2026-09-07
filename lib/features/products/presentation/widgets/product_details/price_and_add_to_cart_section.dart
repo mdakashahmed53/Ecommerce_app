@@ -31,7 +31,7 @@ class PriceAndAddToCartSection extends StatelessWidget {
                 mainAxisSize: .min,
                 children: [
                   Text('Price ', style: TextStyle(fontWeight: .w600),),
-                  Text('${Constants.takaSign}${productDetails.productDetails!.currentPrice}', style: TextStyle(
+                  Text('${Constants.takaSign}${productDetails.productDetails.currentPrice}', style: TextStyle(
                       fontSize: 20,
                       fontWeight: .w600,
                       color: AppColors.themeColor
@@ -48,7 +48,12 @@ class PriceAndAddToCartSection extends StatelessWidget {
                         return CenteredProgressIndicator();
                       }
 
-                      return FilledButton(onPressed: addToCat, child: Text('Add to Cart'));
+
+
+                      return FilledButton(onPressed:(){
+                        addToCat();
+                        print(addToCat);
+                      } , child: Text('Add to Cart'));
                     }
                   ))
             ],

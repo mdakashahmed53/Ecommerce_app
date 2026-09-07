@@ -6,30 +6,33 @@ import '../data/models/add_to_cart_prams.dart';
 
 class AddToCartProvider extends ChangeNotifier {
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
 
   String? _errorMessage;
+
   String? get errorMessage => _errorMessage;
 
-  Future<bool>addToCart(AddToCartPrams prams)async{
+  Future<bool> addToCart(AddToCartPrams prams) async {
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
-    final response = await getNetworkCaller().postRequest(Urls.addToCartUrl, body: prams.toJson());
+    final response = await getNetworkCaller().postRequest(
+      Urls.addToCartUrl,
+      body: prams.toJson(),
+
+    );
     _isLoading = false;
-    if(response.isSuccess){
+    if (response.isSuccess) {
       notifyListeners();
 
       return true;
-    }else{
+    } else {
       _errorMessage = response.errorMessage;
       notifyListeners();
 
       return false;
     }
-
-
-
   }
 }

@@ -53,9 +53,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final bool result = await _addToCartProvider.addToCart(
       AddToCartPrams(
         productId: widget.productId,
-        color: _selectedColor ?? '',
-        size: _selectedSize ?? '',
-        quantity: _quantity,
+        // color: _selectedColor ?? '',
+        // size: _selectedSize ?? '',
+        // quantity: _quantity,
       ),
     );
 
